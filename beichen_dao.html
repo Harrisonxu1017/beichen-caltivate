@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>创业即道场 · 北辰青年</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Sans+SC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #161616;
+    --text: #ede8df;
+    --muted: #6b6660;
+    --accent: #b8956a;
+    --accent-light: rgba(184,149,106,0.12);
+    --border: rgba(255,255,255,0.06);
+    --border-accent: rgba(184,149,106,0.3);
+    --serif: 'Noto Serif SC', 'Cormorant Garamond', serif;
+    --sans: 'Noto Sans SC', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 3rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.4s;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* SECTIONS */
+  section { padding: 7rem 0; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 3rem; }
+  .container-wide { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(184,149,106,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    line-height: 1.15;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    opacity: 0; animation: fadeUp 1s 0.6s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--accent);
+    font-size: 1.1em;
+  }
+  .hero-rule {
+    width: 40px; height: 1px;
+    background: var(--border-accent);
+    margin: 2.5rem auto;
+    opacity: 0; animation: fadeUp 1s 0.9s forwards;
+  }
+  .hero-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    max-width: 480px;
+    opacity: 0; animation: fadeUp 1s 1.1s forwards;
+  }
+  .hero-cta {
+    margin-top: 3.5rem;
+    opacity: 0; animation: fadeUp 1s 1.4s forwards;
+  }
+  .btn-ghost {
+    display: inline-block;
+    border: 1px solid var(--border-accent);
+    color: var(--accent);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    padding: 0.9rem 2.5rem;
+    transition: background 0.3s, color 0.3s;
+  }
+  .btn-ghost:hover {
+    background: var(--accent-light);
+    color: var(--text);
+  }
+  .hero-scroll {
+    position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-size: 0.65rem; letter-spacing: 0.25em; color: var(--muted);
+    opacity: 0; animation: fadeUp 1s 2s forwards;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--muted));
+    animation: scrollLine 2s 2.5s infinite;
+  }
+
+  /* STORY */
+  #story { background: var(--surface); }
+  .story-quote {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    line-height: 1.7;
+    color: var(--text);
+    position: relative;
+    padding-left: 2rem;
+    border-left: 2px solid var(--accent);
+  }
+  .story-body {
+    margin-top: 3rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 2;
+    max-width: 700px;
+  }
+  .story-body strong { color: var(--text); font-weight: 400; }
+
+  /* SECTION LABELS */
+  .label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .label::after {
+    content: '';
+    flex: 1; max-width: 40px;
+    height: 1px; background: var(--border-accent);
+  }
+
+  /* SECTION HEADINGS */
+  .section-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  .section-body {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 2;
+    max-width: 640px;
+  }
+  .section-body strong { color: var(--text); font-weight: 400; }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%; height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* FLYWHEEL */
+  #plan { background: var(--surface2); }
+  .flywheel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 4rem;
+  }
+  .flywheel-item {
+    background: var(--surface2);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+  }
+  .flywheel-item:hover { background: var(--surface); }
+  .fw-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: var(--border-accent);
+    line-height: 1;
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+  .flywheel-item:hover .fw-num { color: var(--accent); }
+  .fw-title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .fw-body {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+  .flywheel-tagline {
+    margin-top: 3rem;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+  .flywheel-tagline span { color: var(--accent); }
+
+  /* LAYERS */
+  #layers { background: var(--bg); }
+  .layer-list { margin-top: 4rem; }
+  .layer-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    align-items: start;
+  }
+  .layer-item:last-child { border-bottom: 1px solid var(--border); }
+  .layer-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    color: var(--border);
+    line-height: 1;
+    text-align: right;
+    padding-top: 0.2rem;
+    transition: color 0.4s;
+  }
+  .layer-item:hover .layer-num { color: var(--accent); }
+  .layer-content {}
+  .layer-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+  }
+  .layer-body { font-size: 0.85rem; color: var(--muted); line-height: 2; }
+  .layer-body strong { color: var(--text); font-weight: 400; }
+  .layer-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    border: 1px solid var(--border-accent);
+    padding: 0.3rem 0.9rem;
+  }
+
+  /* 90 DAYS */
+  #journey { background: var(--surface); }
+  .month-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 4rem;
+  }
+  .month-item {
+    background: var(--surface);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .month-item::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: transparent;
+    transition: background 0.4s;
+  }
+  .month-item:hover::before { background: var(--accent); }
+  .month-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .month-title {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .month-body { font-size: 0.8rem; color: var(--muted); line-height: 1.9; }
+  .month-hw {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .month-hw span { color: var(--text); }
+
+  /* PEERS */
+  #peers { background: var(--bg); }
+  .peers-block {
+    margin-top: 3rem;
+    padding: 3rem;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    position: relative;
+  }
+  .peers-block::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    color: var(--border);
+    position: absolute;
+    top: -1rem; left: 2rem;
+    line-height: 1;
+  }
+  .peers-text {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.9;
+    position: relative;
+    z-index: 1;
+  }
+  .peers-text strong { color: var(--accent); font-weight: 400; }
+
+  /* ABOUT */
+  #about { background: var(--surface); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: start; margin-top: 3rem;
+  }
+  .about-body { font-size: 0.9rem; color: var(--muted); line-height: 2.1; }
+  .about-body strong { color: var(--text); font-weight: 400; }
+  .about-body p + p { margin-top: 1.2rem; }
+  .about-stat {
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+  .stat-row {
+    display: flex; justify-content: space-between;
+    align-items: baseline;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .stat-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
+  .stat-value {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: var(--text);
+    font-weight: 300;
+  }
+
+  /* CTA */
+  #cta {
+    background: var(--bg);
+    text-align: center;
+    padding: 10rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  #cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(184,149,106,0.05) 0%, transparent 70%);
+  }
+  .cta-inner { position: relative; z-index: 1; }
+  .cta-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+  }
+  .cta-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 3rem;
+    line-height: 2;
+  }
+  .cta-detail {
+    display: inline-flex; align-items: center; gap: 2rem;
+    border: 1px solid var(--border);
+    padding: 1.5rem 3rem;
+    margin-top: 4rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+  }
+  .cta-detail span { color: var(--text); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+  .footer-note { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.35s; }
+  .reveal-delay-4 { transition-delay: 0.5s; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .container, .container-wide { padding: 0 1.5rem; }
+    section { padding: 5rem 0; }
+    .flywheel-grid, .month-grid { grid-template-columns: 1fr; }
+    .layer-item { grid-template-columns: 50px 1fr; gap: 1rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .cta-detail { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">北辰 · 道场</a>
+  <ul class="nav-links">
+    <li><a href="#plan">计划</a></li>
+    <li><a href="#layers">四层结构</a></li>
+    <li><a href="#journey">90天</a></li>
+    <li><a href="#peers">同见同行</a></li>
+    <li><a href="#cta">加入</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-tag">北辰青年 · 内在成长陪伴计划</div>
+  <h1 class="hero-title">
+    创业即道场<br>
+    <em>创业即修行</em>
+  </h1>
+  <div class="hero-rule"></div>
+  <p class="hero-sub">用AI时代最稀缺的内功，一起转动IP和事业的飞轮</p>
+  <div class="hero-cta">
+    <a href="#plan" class="btn-ghost">了解计划</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>向下探索</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STORY -->
+<section id="story">
+  <div class="container">
+    <div class="label reveal">序言</div>
+    <blockquote class="story-quote reveal reveal-delay-1">
+      "世界蠢得不可思议，我也是。"<br>
+      <small style="font-size:0.55em; letter-spacing:0.2em; color: var(--muted); font-family: var(--sans); font-weight:300;">——汪滔，大疆创始人，2026年春</small>
+    </blockquote>
+    <div class="story-body reveal reveal-delay-2">
+      <p>这十年，大疆从几十亿做到超过800亿，每款新品依然爆款。但汪滔说，二十年最骄傲的事，不是那家世界级公司，而是<strong>学会了反思</strong>。</p>
+      <p style="margin-top:1.2rem;">他曾经"我慢太重"——极度骄傲，只关注产品，内部腐败蔓延，"头上像悬了一片乌云"。这十年的蜕变，让他从"看见妖怪就想一棒子打死"的孙悟空，慢慢变成"先给他们念念经"的成熟创业者。</p>
+      <p style="margin-top:1.2rem;"><strong>外在的事业，不过是内在心性的投影。</strong></p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PLAN -->
+<section id="plan">
+  <div class="container">
+    <div class="label reveal">这个计划</div>
+    <h2 class="section-title reveal reveal-delay-1">没有老师，只有<br>同见同行的旅伴</h2>
+    <p class="section-body reveal reveal-delay-2">
+      这是一个为期 <strong>90天</strong> 的小型陪伴式成长实验。它不是课程，不是培训班，也不是打卡群。<br><br>
+      它是一个有方法论、有陪伴、有反馈闭环的内在成长容器——<strong>在真实的创业过程中，我们一起建立外在行动与内在觉察的正反馈系统</strong>，最终每个人都训练出一个专属于自己的AI人生教练。
+    </p>
+  </div>
+
+  <div class="container-wide">
+    <div class="flywheel-grid reveal reveal-delay-2" style="margin-top:4rem;">
+      <div class="flywheel-item">
+        <div class="fw-num">01</div>
+        <div class="fw-title">行动</div>
+        <div class="fw-body">做IP / 直播 / 创业——用真实的创业体验作为成长的原料</div>
+      </div>
+      <div class="flywheel-item">
+        <div class="fw-num">02</div>
+        <div class="fw-title">觉察</div>
+        <div class="fw-body">每日反思日记：今天发生了什么？我的真实反应是什么？</div>
+      </div>
+      <div class="flywheel-item">
+        <div class="fw-num">03</div>
+        <div class="fw-title">洞见</div>
+        <div class="fw-body">在彼此的陪伴下，一起找到模式和盲点——被真实看见</div>
+      </div>
+      <div class="flywheel-item">
+        <div class="fw-num">04</div>
+        <div class="fw-title">成长 × AI</div>
+        <div class="fw-body">心性升级，并将所有反思数据训练成你的专属AI Coach</div>
+      </div>
+    </div>
+    <p class="flywheel-tagline reveal reveal-delay-3">
+      <span>创业飞轮</span> × <span>成长飞轮</span> × <span>AI飞轮</span>——三者互相咬合，互相加速
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LAYERS -->
+<section id="layers">
+  <div class="container">
+    <div class="label reveal">具体怎么做</div>
+    <h2 class="section-title reveal reveal-delay-1">四层结构</h2>
+    <p class="section-body reveal reveal-delay-2">每一层都是上一层的延伸，构成一个完整的正反馈闭环。</p>
+
+    <div class="layer-list">
+      <div class="layer-item reveal">
+        <div class="layer-num">一</div>
+        <div class="layer-content">
+          <div class="layer-title">每日反思日记</div>
+          <div class="layer-body">
+            每天用 <strong>15–20分钟</strong>，用「当日四问」框架做深度反思：今天有什么情绪波动？第一反应是什么？旁观者视角如何解读？重来一次，我希望是什么状态？<br><br>
+            写完后在群里轻量打卡——<strong>不是监督，而是共创行动的氛围</strong>。隐私完全由你掌控：分享全文，或只发一句梗概，都可以。重要的不是内容，而是「今天，我认真往里看了一次」的共同频率。
+          </div>
+          <span class="layer-tag">核心基础设施</span>
+        </div>
+      </div>
+
+      <div class="layer-item reveal">
+        <div class="layer-num">二</div>
+        <div class="layer-content">
+          <div class="layer-title">每周一次小组陪伴</div>
+          <div class="layer-body">
+            6–8人，90分钟线上小组会议。不是汇报，不是炫耀，是<strong>真实的分享和见证</strong>。每人分享本周日记中最触动自己的一个时刻，大家一起用苏格拉底式提问帮彼此看得更深。<br><br>
+            每一次你听见别人说出你从未敢开口的那句话，你的某一部分也在被悄悄松绑。
+          </div>
+          <span class="layer-tag">深度容器</span>
+        </div>
+      </div>
+
+      <div class="layer-item reveal">
+        <div class="layer-num">三</div>
+        <div class="layer-content">
+          <div class="layer-title">双周一次同行对话</div>
+          <div class="layer-body">
+            每两周，一次30分钟的一对一深度对话。不是咨询，不是被评判，而是<strong>两个人坐在同一侧，一起看一件事</strong>。结合日记记录和业务进展，共同找到心性模式与业务结果之间的具体联系。
+          </div>
+          <span class="layer-tag">战略性反思</span>
+        </div>
+      </div>
+
+      <div class="layer-item reveal">
+        <div class="layer-num">四</div>
+        <div class="layer-content">
+          <div class="layer-title">训练你的专属AI Coach</div>
+          <div class="layer-body">
+            你的90天日记，是训练专属AI Coach的原始数据。每隔30天，我们把日记中的洞见、模式和成长节点整理成你的<strong>个人心性档案</strong>，注入AI，创造一个真正了解你的AI教练——它知道你的惯性模式、核心恐惧和成长边界。<br><br>
+            <strong>这是AI时代给创业者最独特的礼物：你的成长，可以被记住、被沉淀、被放大。</strong>
+          </div>
+          <span class="layer-tag">AI时代独特礼物</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="container">
+    <div class="label reveal">90天旅程</div>
+    <h2 class="section-title reveal reveal-delay-1">三个月，三个阶段</h2>
+  </div>
+  <div class="container-wide">
+    <div class="month-grid reveal reveal-delay-2">
+      <div class="month-item">
+        <div class="month-label">第一个月 · MONTH ONE</div>
+        <div class="month-title">建立看见自己的能力</div>
+        <div class="month-body">你可能会有点不舒服——因为你会开始看见很多以前不愿意承认的东西。我们不需要十年，但需要愿意往里看。</div>
+        <div class="month-hw">本月功课：找到你最主要的两个<span>「触发点」</span></div>
+      </div>
+      <div class="month-item">
+        <div class="month-label">第二个月 · MONTH TWO</div>
+        <div class="month-title">建立稳定的内在秩序</div>
+        <div class="month-body">看见模式之后，学会不被它拖着走。建立情绪和行动之间的一个空间——在那个空间里，你的智慧可以出现。</div>
+        <div class="month-hw">本月功课：记录三次<span>「在触发点前选择了不同反应」</span></div>
+      </div>
+      <div class="month-item">
+        <div class="month-label">第三个月 · MONTH THREE</div>
+        <div class="month-title">内在成长驱动业务增长</div>
+        <div class="month-body">飞轮效应开始显现。直播时更稳，谈合作时更清醒，面对负面反馈时更有力量——因为你能反求诸己。</div>
+        <div class="month-hw">本月功课：记录一个<span>「内在成长带来业务改变」</span>的真实案例</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PEERS -->
+<section id="peers">
+  <div class="container">
+    <div class="label reveal">同见同行</div>
+    <h2 class="section-title reveal reveal-delay-1">这个计划给你的<br>不只是自己的成长</h2>
+    <div class="peers-block reveal reveal-delay-2">
+      <p class="peers-text">
+        每一个人带着自己真实的创业处境进来，彼此照见，彼此支持。你陪伴别人走过一段内在的路，你自己也重新出发了一次——<strong>这个计划最大的受益者，往往是那个愿意真实陪伴他人的人。</strong><br><br>
+        90天之后，你带走的不只是自己的成长飞轮。你还会拥有一套真正可以落地的陪伴方法论——如何提问、如何看见、如何帮助一个人找到自己的模式和盲点。这套东西，可以用在你的客户身上，用在你的团队里，用在你最在乎的人身上。<br><br>
+        <strong>成长从来不是终点，而是你能给出去的东西。</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="label reveal">关于发起人</div>
+    <div class="about-grid">
+      <div class="about-body reveal reveal-delay-1">
+        <p>我自己也是一路走过来的。创过业，做过风险投资，见过很多有理想、有使命感的创业者。那时候能给的支持，是资金、资源、对接——解决外部的问题。</p>
+        <p>但这个过程里，我越来越清晰地看到一件事：即使把所有外部条件都配齐了，一家公司能走多远，依然取决于创始人的内在状态。</p>
+        <p>这套方法论不是我教给你的，是我自己走出来的，也只有我们一起走，才能继续走深。</p>
+        <p><strong>我不是大师，我也还在路上。</strong>在这里，我更想做的是和一群认真走这条路的人，彼此照见，同见同行。每次有人说出一句真话，我也会被触动一次。这是我做这件事最真实的理由——不是因为我已经想明白了，而是因为我想和你们一起，继续往里走。</p>
+      </div>
+      <div class="about-stat reveal reveal-delay-2">
+        <div class="stat-row">
+          <span class="stat-label">计划时长</span>
+          <span class="stat-value">90 天</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">首期招募</span>
+          <span class="stat-value">6–12 人</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">每周投入</span>
+          <span class="stat-value">约 3–4 小时</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">形式</span>
+          <span class="stat-value">小规模 深陪伴</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="container cta-inner">
+    <div class="label reveal" style="justify-content:center;">邀请</div>
+    <h2 class="cta-title reveal reveal-delay-1">
+      欢迎你，带着你真实的自己<br>和我们一起，来这里
+    </h2>
+    <p class="cta-sub reveal reveal-delay-2">
+      等待一个地方，可以真实地面对自己。等待一群人，可以一起走这段内外兼修的路。等待一套方法，把每一天的创业体验，变成真实的成长原料。
+    </p>
+    <div class="reveal reveal-delay-3">
+      <a href="mailto:" class="btn-ghost">带着你最真实的一个内在困惑，来找我们聊聊</a>
+    </div>
+    <div class="cta-detail reveal reveal-delay-4">
+      <span>首期名额 <span>6–12</span> 人</span>
+      <span style="color:var(--border);">|</span>
+      <span>小规模 · 深陪伴</span>
+      <span style="color:var(--border);">|</span>
+      <span>北辰青年专属</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">北辰青年 · 创业道场 · 同见同行</div>
+  <div class="footer-note">"从无知到反思，再到慢慢成熟。" ——汪滔</div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
